@@ -31,8 +31,12 @@ app.get("/api/timestamp/:date_string", function (req, res) {
   if(!date_string_req.includes('-')) {
     date_string_req = parseInt(date_string_req);
   }
-   var date_string = new Date(date_string_req);  
-  res.json({"unix": date_string.getTime(), "utc" : date_string.toUTCString() });
+   var date_string = new Date(date_string_req);
+  if(date_string=='Invalid Date') {
+    res.json({"error" : "Invalid Date" });
+  } else {
+      res.json({"unix": date_string.getTime(), "utc" : date_string.toUTCString() });
+  }
 });
 
 
